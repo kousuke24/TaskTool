@@ -1,4 +1,4 @@
-## データベース図  
+## データベース図  ：
 ![データベース図](images/IMG_2507.jpeg)
 
 ## 画面設計（予定）  
@@ -13,7 +13,7 @@
 *(モデル名・カラム名・データ型)*  
 
 (task・title・string)  
-(task・content・string)
+(task・content・string)  
 (task・deadline・date)  
 (task・user_id・integer)    
 (task・status_id・integer) 
