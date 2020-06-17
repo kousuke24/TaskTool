@@ -1,148 +1,33 @@
-# Ruby on Rails on Docker
+## データベース図  
+![データベース図](images/IMG_2507.jpeg)
 
-## Ruby version
- - [.ruby-version](https://github.com/hihats/ruby-on-rails-pg-on-docker/blob/master/.ruby-version)
+## 画面設計（予定）  
+![画面設計1](images/IMG_2508.jpeg)
+![画面設計2](images/IMG_2509.jpeg)
+![画面設計3](images/IMG_2510.jpeg)
+![画面設計4](images/IMG_2511.jpeg)
+![画面設計5](images/IMG_2512.jpeg)
+![画面設計6](images/IMG_2513.jpeg)
 
+## テーブルスキーマ  
+*(モデル名・カラム名・データ型)*  
 
-## Gem versions
-- Ruby on Rails [![Gem Version](https://badge.fury.io/rb/rails.svg)](https://badge.fury.io/rb/rails)
+(task・title・string)  
+(task・content・string)
+(task・deadline・date)  
+(task・user_id・integer)    
+(task・status_id・integer) 
+(task・priority_id・integer)   
 
-- rubocop [![Gem Version](https://badge.fury.io/rb/rubocop.svg)](https://badge.fury.io/rb/rubocop)
+(user・name・string)  
+(user・password_digest・string)  
+(user・admin_flag・string)  
 
-# Setup Dockerized development environment
-- Docker環境をローカルマシンに作成
-- bundlerでFWなどのパッケージを導入して使用する想定
-- RDBMSはPostgreSQLとする
+(status・name・string)  
 
-## Installation
+(priority・name・string)  
 
-[Docker for Mac, Docker for Windows](https://www.docker.com/products/docker-desktop)
+(label・name・string)  
 
-dockerコマンド、docker-machineコマンド、docker-composeコマンド全部入り
-
-In case of Mac, You can also use Homebrew
-```bash
-$ brew install docker
-$ brew cask install docker
-```
-
-## Initial Setting
-
-### Launch Docker Host OS（docker-machineをつかう場合だけ必要）
-```bash
-$ docker-machine create --driver virtualbox myrailsapp
-$ docker-machine start myrailsapp
-```
-#### 起動を確認
-```bash
-$ docker-machine ls
-```
-#### 接続
-```bash
-$ docker-machine env myrailsapp
-```
-`# Run this command to configure your shell:`と出力されるので従う
-
-
-## Gemfile確認
-DefaultではRuby on Rails最低限のGemのみ記載
-この上に必要なGemを追加していきます。
-
-
-## Docker Container build
-docker-composeコマンドを使い、複数コンテナをbuild〜起動していく
-
-### コンテナ構成
-- app
-- db
-- node（初期は使わないので削除してもよい）
-
-(設定は`docker-compose.yml`)
-```
-$ docker-compose build
-Successfully built.
-```
-
-## Generation packages by rails new
-```
-$ docker-compose run --rm app rails new . -d postgresql --skip-bundle --skip-turbolinks --skip-test --skip
-```
-
-## 起動
-```
-$ docker-compose up -d
-```
-
-コンテナの起動確認
-```
-$ docker ps
-```
-
-## データベースのConnection設定
-生成された`config/database.yml`の `development:` 配下に
-```
-database: <%= ENV['PG_DATABASE'] %>
-username: <%= ENV['PG_USER'] %>
-password: <%= ENV['PG_PASSWORD'] %>
-host: db
-```
-を追加修正
-** postgresのdockerイメージは起動時に初期DBや初期ユーザをよしなに作成してくれることを留意しておく **
-
-[postgresイメージに渡せる環境変数の参照](https://hub.docker.com/_/postgres)
-
-### 設定変更後はコンテナを再起動する
-```
-$ docker-compose restart app
-```
-
-## ブラウザでRailsの起動確認
-```
-$ open http://0.0.0.0
-```
-docker-machineの場合
-```
-$ open http://$(docker-machine ip myrailsapp)
-```
-Railsの初期画面が表示されればSetup Complete
-
-
-
-## Gemfileに変更があった場合
-変更をローカルにマージ後
-
-```
-$ docker-composer build
-```
-buildし直すことで、DockerfileのAddがGemfile&Gemfile.lockのキャッシュから更新があったときのみ検知してbundle install が走る
-
-
-## 既存問題点
-
-###  Docker machine のホスト時刻がずれて、Railsの更新が反映されない問題
-
-http://qiita.com/pocari/items/456052a291381895f8b3
-
-Dockerマシンの中に入って
-```bash
-$ docker-machine ssh ****
-```
-
-VirualBoxの設定変更
-```bash
-$ sudo VBoxControl guestproperty set "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold" 5000
-```
-
-
-
-###  Docker inorify issue
-
- `reach limit of inotify count in rails console` Error Message
-
-[Increasing the amount of inotify watchers](https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers)
-
-```bash
-$ echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf && sysctl -p
-$ cat /proc/sys/fs/inotify/max_user_watches
-```
-Dockerfileに組み込みたいが、Privilegedで起動扠せねばならぬ問題があるため、起動時に叩くシェルを作るか
+(tasks_labels_relation・task_id・integer)  
+(tasks_labels_relation・label_id・integer)  
