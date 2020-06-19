@@ -23,7 +23,6 @@ default: &default
 
 development:
   <<: *default
-  database: app_development
   database: <%= ENV['PG_DATABASE'] %>
   username: <%= ENV['PG_USER'] %>
   password: <%= ENV['PG_PASSWORD'] %>
