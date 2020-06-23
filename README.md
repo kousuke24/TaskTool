@@ -16,8 +16,8 @@
 (task・content・string)  
 (task・deadline・date)  
 (task・user_id・integer)    
-(task・status_id・integer) 
-(task・priority_id・integer)   
+(task・status_id・integer)  
+(task・priority_id・integer)  
 
 (user・name・string)  
 (user・password_digest・string)  
