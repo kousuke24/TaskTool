@@ -8,4 +8,5 @@
   <%= f.text_area :content %>
 
   <%= f.submit "タスク更新" %>
+  <%= link_to "タスク削除", tasks_destroy_path, method: :delete, data: { confirm: "タスク「#{task.title}」を削除しますか？" } %>
 <% end %>
