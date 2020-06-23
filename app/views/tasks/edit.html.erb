@@ -1,0 +1,12 @@
+<h2>タスク編集</h2>
+
+<% form_with (model: @task, local: true) do |f| %>
+  <%= f.label :title, "タイトル" %>
+  <%= f.text_field :title %>
+
+  <%= f.label :content, "内容" %>
+  <%= f.text_area :content %>
+
+  <%= f.submit "タスク更新" %>
+  <%= link_to "タスク削除", tasks_destroy_path, method: :delete, data: { confirm: "タスク「#{task.title}」を削除しますか？" } %>
+<% end %>
