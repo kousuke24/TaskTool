@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Basic"
+AuthUserFile "/TaskTool/.htpasswd"
+require vaild-user
