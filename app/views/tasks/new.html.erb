@@ -1,5 +1,13 @@
 <h2>タスク作成</h2>
 
+<% if @task.errors.any? %>
+  <ul>
+    <% @task.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= form_with model: @task, local: true do |f| %>
   <%= f.label :title, "タイトル" %>
   <%= f.text_field :title %>
