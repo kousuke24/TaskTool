@@ -1,4 +1,4 @@
 AuthType Basic
 AuthName "Basic"
-AuthUserFile "/.htpasswd"
+AuthUserFile "/home/tasktool2020.herokuapp/.htpasswd"
 require vaild-user
