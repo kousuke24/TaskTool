@@ -1,4 +1,4 @@
 AuthType Basic
 AuthName "Basic"
-AuthUserFile "/"
+AuthUserFile "/.htpasswd"
 require vaild-user
