@@ -1,4 +1,0 @@
-AuthType Basic
-AuthName "Basic"
-AuthUserFile "/home/tasktool2020/.htpasswd"
-require vaild-user
