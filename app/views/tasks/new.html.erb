@@ -15,5 +15,8 @@
   <%= f.label :content, "内容" %>
   <%= f.text_area :content %>
 
+  <%= f.label :deadline, "終了期限" %>
+  <%= f.date_select :deadline %>
+
   <%= f.submit "タスク作成" %>
 <% end %>
