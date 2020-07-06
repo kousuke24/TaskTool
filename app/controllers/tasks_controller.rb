@@ -1,11 +1,13 @@
 class TasksController < ApplicationController
   def index
-    if params[:sort] == "create"
+    if params[:sort] == "create_desc"
       @tasks = Task.all.order(created_at: :DESC)
-    elsif params[:sort] == "deadline"
+    elsif params[:sort] == "deadline_asc"
       @tasks = Task.all.order(deadline: :ASC)
+    elsif params[:sort] == "deadline_desc"
+      @tasks = Task.all.order(deadline: :DESC)
     else
-      @tasks = Task.all
+      @tasks = Task.all.order(created_at: :ASC)
     end
   end
 
