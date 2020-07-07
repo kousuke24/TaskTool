@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'selenium-webdriver'
 
 RSpec.describe Task, type: :system do
   describe '#index' do
