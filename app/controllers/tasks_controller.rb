@@ -1,6 +1,14 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    if params[:sort] == "create_desc"
+      @tasks = Task.all.order(created_at: :DESC)
+    elsif params[:sort] == "deadline_asc"
+      @tasks = Task.all.order(deadline: :ASC)
+    elsif params[:sort] == "deadline_desc"
+      @tasks = Task.all.order(deadline: :DESC)
+    else
+      @tasks = Task.all.order(created_at: :ASC)
+    end
   end
 
   def show
@@ -51,6 +59,6 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :content)
+    params.require(:task).permit(:title, :content, :deadline)
   end
 end
