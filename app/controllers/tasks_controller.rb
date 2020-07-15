@@ -80,14 +80,6 @@ class TasksController < ApplicationController
   end
 
   def status
-    @tasks = if params[:status_id] == '1'
-               @tasks.where(status_id: 1)
-             elsif params[:status_id] == '2'
-               @tasks.where(status_id: 2)
-             elsif params[:status_id] == '3'
-               @tasks.where(status_id: 3)
-             else
-               @tasks
-             end
+    @tasks = @tasks.where(status_id: params[:status_id]) if params[:status_id].present?
   end
 end
