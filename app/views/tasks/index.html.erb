@@ -16,7 +16,7 @@
 <% end %>
 
 <% @tasks.each do |task| %>
-  <p><%= link_to task.title, task_path(task) %> : <%= link_to task.status.name, task_path(task) %></p>
+  <p><%= link_to task.title, task_path(task) %> : <%= task.status.name %></p>
 <% end %>
 
 <%= link_to "タスク作成", new_task_path %>
