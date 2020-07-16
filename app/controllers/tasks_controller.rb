@@ -3,7 +3,6 @@ class TasksController < ApplicationController
 
   def index
     search
-    status
   end
 
   def show
@@ -70,16 +69,8 @@ class TasksController < ApplicationController
   end
 
   def search
-    @tasks = if params[:title].present? && params[:status_id].present?
-               @tasks.where('title LIKE ?', "%#{params[:title]}%").where(status_id: params[:status_id])
-             elsif params[:title].present?
-               @tasks.where('title LIKE ?', "%#{params[:title]}%")
-             else
-               @tasks
-             end
-  end
-
-  def status
+    @tasks = @tasks.where('title LIKE ?', "%#{params[:title]}%") if params[:title].present?
     @tasks = @tasks.where(status_id: params[:status_id]) if params[:status_id].present?
+    @tasks
   end
 end
