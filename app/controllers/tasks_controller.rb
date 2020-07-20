@@ -1,7 +1,6 @@
 class TasksController < ApplicationController
-  before_action :sort, only: [:index]
-
   def index
+    sort
     search
   end
 
