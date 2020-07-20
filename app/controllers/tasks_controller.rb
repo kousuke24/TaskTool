@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   def index
-    sort
+    created_sort
+    deadline_sort
     search
   end
 
@@ -55,15 +56,21 @@ class TasksController < ApplicationController
     params.require(:task).permit(:title, :content, :deadline, :status_id)
   end
 
-  def sort
-    @tasks = if params[:sort] == 'create_desc'
+  def created_sort
+    @tasks = if params[:sort] == 'created_desc'
                Task.all.order(created_at: :DESC)
-             elsif params[:sort] == 'deadline_asc'
+             else
+               Task.all.order(created_at: :ASC)
+             end
+  end
+
+  def deadline_sort
+    @tasks = if params[:sort] == 'deadline_asc'
                Task.all.order(deadline: :ASC)
              elsif params[:sort] == 'deadline_desc'
                Task.all.order(deadline: :DESC)
              else
-               Task.all.order(created_at: :ASC)
+               @tasks
              end
   end
 
