@@ -1,7 +1,7 @@
 <h2>タスク一覧</h2>
 
 <%= form_with url: root_path, method: :get, local: true do |f| %>
-  <%= f.select :sort, options_for_select({作成日時降順: "created_desc", 終了期限昇順: "deadline_asc", 終了期限降順: "deadline_desc"},params[:sort]), include_blank: "作成日時昇順" %>
+  <%= f.select :sort, options_for_select({作成日時昇順: "created_asc", 作成日時降順: "created_desc", 終了期限昇順: "deadline_asc", 終了期限降順: "deadline_desc"},params[:sort]), include_blank: "選択する" %>
   
   <%= f.text_field :title, value: params[:title] %>
   
