@@ -18,6 +18,14 @@
   <%= f.radio_button :status_id, "3" %>
   <%= f.label :status_id, "完了", {value: 3} %>
 
+  <%= f.label :priority_id, "優先順位" %>
+  <%= f.radio_button :priority_id, "1" %>
+  <%= f.label :priority_id, "高", {value: 1} %>
+  <%= f.radio_button :priority_id, "2" %>
+  <%= f.label :priority_id, "中", {value: 2} %>
+  <%= f.radio_button :priority_id, "3" %>
+  <%= f.label :priority_id, "低", {value: 3} %>
+
   <%= f.submit "タスク更新" %>
   <%= link_to "タスク削除", @task, method: :delete, data: { confirm: "タスク\"#{@task.title}\"を削除しますか？" } %>
 <% end %>

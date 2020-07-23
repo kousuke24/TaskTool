@@ -53,7 +53,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :content, :deadline, :status_id)
+    params.require(:task).permit(:title, :content, :deadline, :status_id, :priority_id)
   end
 
   def sort_tasks
@@ -61,6 +61,8 @@ class TasksController < ApplicationController
     @tasks = @tasks.order(created_at: :DESC) if params[:sort] == 'created_desc'
     @tasks = @tasks.order(deadline: :ASC) if params[:sort] == 'deadline_asc'
     @tasks = @tasks.order(deadline: :DESC) if params[:sort] == 'deadline_desc'
+    @tasks = @tasks.order(priority_id: :ASC) if params[:sort] == 'priority_asc'
+    @tasks = @tasks.order(priority_id: :DESC) if params[:sort] == 'priority_desc'
   end
 
   def search_tasks
