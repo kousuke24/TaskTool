@@ -1,17 +1,14 @@
 <h2>タスク一覧</h2>
 
 <%= form_with url: root_path, method: :get, local: true do |f| %>
-  <%= f.select :sort, options_for_select({作成日時昇順: "created_asc", 作成日時降順: "created_desc", 終了期限昇順: "deadline_asc", 終了期限降順: "deadline_desc", 優先順位昇順: "priority_asc", 優先順位降順: "priority_desc"},params[:sort]), include_blank: "選択する" %>
-  
+  <%= f.select :sort, options_for_select({作成日時昇順: "created_at,asc", 作成日時降順: "created_at,desc", 終了期限昇順: "deadline,asc", 終了期限降順: "deadline,desc", 優先順位昇順: "priority_id,asc", 優先順位降順: "priority_id,desc"},params[:sort]), include_blank: "選択する" %>
   <%= f.text_field :title, value: params[:title] %>
-  
   <%= f.radio_button :status_id, "1", checked: params[:status_id] == "1" %>
   <%= f.label :status_id, "未着手", {value: 1} %>
   <%= f.radio_button :status_id, "2", checked: params[:status_id] == "2" %>
   <%= f.label :status_id, "着手中", {value: 2} %>
   <%= f.radio_button :status_id, "3", checked: params[:status_id] == "3" %>
   <%= f.label :status_id, "完了", {value: 3} %>
-  
   <%= f.submit "検索" %>
 <% end %>
 
