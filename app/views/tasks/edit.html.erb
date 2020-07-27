@@ -10,6 +10,14 @@
   <%= f.label :deadline, "終了期限" %>
   <%= f.date_select :deadline %>
 
+  <%= f.label :status_id, "ステータス" %>
+  <%= f.radio_button :status_id, "1" %>
+  <%= f.label :status_id, "未着手", {value: 1} %>
+  <%= f.radio_button :status_id, "2" %>
+  <%= f.label :status_id, "着手中", {value: 2} %>
+  <%= f.radio_button :status_id, "3" %>
+  <%= f.label :status_id, "完了", {value: 3} %>
+
   <%= f.submit "タスク更新" %>
   <%= link_to "タスク削除", @task, method: :delete, data: { confirm: "タスク\"#{@task.title}\"を削除しますか？" } %>
 <% end %>

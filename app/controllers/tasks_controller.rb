@@ -1,14 +1,8 @@
 class TasksController < ApplicationController
   def index
-    @tasks = if params[:sort] == 'create_desc'
-               Task.all.order(created_at: :DESC)
-             elsif params[:sort] == 'deadline_asc'
-               Task.all.order(deadline: :ASC)
-             elsif params[:sort] == 'deadline_desc'
-               Task.all.order(deadline: :DESC)
-             else
-               Task.all.order(created_at: :ASC)
-             end
+    @tasks = Task.all
+    sort_tasks
+    search_tasks
   end
 
   def show
@@ -23,7 +17,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     if @task.save
       flash[:notice] = 'タスクを作成しました'
-      redirect_to root_path
+      redirect_to task_path(@task)
     else
       flash.now[:alert] = 'タスクを作成できませんでした'
       render :new
@@ -59,6 +53,18 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :content, :deadline)
+    params.require(:task).permit(:title, :content, :deadline, :status_id)
+  end
+
+  def sort_tasks
+    @tasks = @tasks.order(created_at: :ASC) if params[:sort] == 'created_asc'
+    @tasks = @tasks.order(created_at: :DESC) if params[:sort] == 'created_desc'
+    @tasks = @tasks.order(deadline: :ASC) if params[:sort] == 'deadline_asc'
+    @tasks = @tasks.order(deadline: :DESC) if params[:sort] == 'deadline_desc'
+  end
+
+  def search_tasks
+    @tasks = @tasks.where('title LIKE ?', "%#{params[:title]}%") if params[:title].present?
+    @tasks = @tasks.where(status_id: params[:status_id]) if params[:status_id].present?
   end
 end
