@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.preload(:status, :priority)
+    @tasks = Task.preload(:status, :priority).page(params[:page]).per(15)
     sort_tasks
     search_tasks
   end
@@ -57,10 +57,10 @@ class TasksController < ApplicationController
   end
 
   def sort_tasks
-    if params[:sort]
-      sort = params[:sort].to_s.split(',')
-      @tasks = @tasks.order(sort[0].to_sym => sort[1].to_sym)
-    end
+    return unless params[:sort]
+
+    sort = params[:sort].to_s.split(',')
+    @tasks = @tasks.order(sort[0].to_sym => sort[1].to_sym)
   end
 
   def search_tasks

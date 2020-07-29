@@ -16,4 +16,6 @@
   <p><%= link_to task.title, task_path(task) %> : <%= task.status.name %>：<%= task.priority.name %></p>
 <% end %>
 
+<%= paginate @tasks %>
+
 <%= link_to "タスク作成", new_task_path %>
