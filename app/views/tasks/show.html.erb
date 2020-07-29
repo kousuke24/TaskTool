@@ -4,5 +4,6 @@
 <p>内容：　<%= @task.content %></p>
 <p>終了期限： <%= @task.deadline %></p>
 <p>ステータス： <%= @task.status.name %></p>
+<p>優先順位： <%= @task.priority.name %></p>
 
 <%= link_to "タスク編集", edit_task_path %>

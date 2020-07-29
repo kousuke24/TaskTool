@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all
+    @tasks = Task.preload(:status, :priority)
     sort_tasks
     search_tasks
   end
@@ -53,14 +53,14 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :content, :deadline, :status_id)
+    params.require(:task).permit(:title, :content, :deadline, :status_id, :priority_id)
   end
 
   def sort_tasks
-    @tasks = @tasks.order(created_at: :ASC) if params[:sort] == 'created_asc'
-    @tasks = @tasks.order(created_at: :DESC) if params[:sort] == 'created_desc'
-    @tasks = @tasks.order(deadline: :ASC) if params[:sort] == 'deadline_asc'
-    @tasks = @tasks.order(deadline: :DESC) if params[:sort] == 'deadline_desc'
+    if params[:sort]
+      sort = params[:sort].to_s.split(',')
+      @tasks = @tasks.order(sort[0].to_sym => sort[1].to_sym)
+    end
   end
 
   def search_tasks
