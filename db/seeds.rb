@@ -5,12 +5,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-10000.times do |t|
+100.times do |t|
   if t % 2 == 0
-    Task.create(title: "b#{t}", status_id: 2)
+    Task.create(title: "b#{t}", status_id: 2, priority_id: 2)
   elsif t % 3 == 0
-    Task.create(title: "c#{t}", status_id: 3)
+    Task.create(title: "c#{t}", status_id: 3, priority_id: 3)
   else
-    Task.create(title: "a#{t}", status_id: 1)
+    Task.create(title: "a#{t}", status_id: 1, priority_id: 1)
   end
 end
