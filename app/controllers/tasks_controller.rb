@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.preload(:status, :priority).page(params[:page]).per(15)
+    @tasks = Task.preload(:status, :priority).page(params[:page]).per(10)
     sort_tasks
     search_tasks
   end
@@ -16,10 +16,10 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      flash[:notice] = 'タスクを作成しました'
+      flash[:info] = 'タスクを作成しました'
       redirect_to task_path(@task)
     else
-      flash.now[:alert] = 'タスクを作成できませんでした'
+      flash.now[:warning] = 'タスクを作成できませんでした'
       render :new
     end
   end
@@ -31,10 +31,10 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     if @task.update(task_params)
-      flash[:notice] = 'タスクを更新しました'
+      flash[:success] = 'タスクを更新しました'
       redirect_to task_path
     else
-      flash.now[:alert] = 'タスクを更新できませんでした'
+      flash.now[:warning] = 'タスクを更新できませんでした'
       render :edit
     end
   end
@@ -42,10 +42,10 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find(params[:id])
     if @task.destroy
-      flash[:notice] = 'タスクを削除しました'
+      flash[:danger] = 'タスクを削除しました'
       redirect_to root_path
     else
-      flash.now[:alert] = 'タスクを削除できませんでした'
+      flash.now[:warning] = 'タスクを削除できませんでした'
       render :edit
     end
   end
