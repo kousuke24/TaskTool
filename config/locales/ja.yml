@@ -6,3 +6,12 @@ ja:
       task:
         title: タイトル
         content: 内容
+        status: ステータス
+        priority: 優先順位
+  views:
+    pagination:
+      first: '最初'
+      last: '最後'
+      previous: '前'
+      next: '次'
+      truncate: '...'

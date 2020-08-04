@@ -1,21 +1,46 @@
-<h2>タスク一覧</h2>
+<div class="text-center">
+  <h2 class="font-weight-bold">タスク一覧</h2>
+</div>
 
 <%= form_with url: root_path, method: :get, local: true do |f| %>
-  <%= f.select :sort, options_for_select({作成日時昇順: "created_at,asc", 作成日時降順: "created_at,desc", 終了期限昇順: "deadline,asc", 終了期限降順: "deadline,desc", 優先順位昇順: "priority_id,asc", 優先順位降順: "priority_id,desc"},params[:sort]), include_blank: "選択する" %>
-  <%= f.text_field :title, value: params[:title] %>
-  <%= f.radio_button :status_id, "1", checked: params[:status_id] == "1" %>
-  <%= f.label :status_id, "未着手", {value: 1} %>
-  <%= f.radio_button :status_id, "2", checked: params[:status_id] == "2" %>
-  <%= f.label :status_id, "着手中", {value: 2} %>
-  <%= f.radio_button :status_id, "3", checked: params[:status_id] == "3" %>
-  <%= f.label :status_id, "完了", {value: 3} %>
-  <%= f.submit "検索" %>
+  <div class="mb-2 d-flex justify-content-around">
+    <%= f.text_field :title, value: params[:title], class: "col-3 form-control" %>
+    <%= f.select :sort, options_for_select({作成日時昇順: "created_at,asc", 作成日時降順: "created_at,desc", 終了期限昇順: "deadline,asc", 終了期限降順: "deadline,desc", 優先順位昇順: "priority_id,asc", 優先順位降順: "priority_id,desc"},params[:sort]), {}, {class: "ml-3 form-control"} %>
+    
+    <div class="col-9 btn-group btn-group-toggle" data-toggle="buttons">
+      <label class="btn btn-outline-secondary">
+        <%= f.radio_button :status_id, "1", checked: params[:status_id] == "1" %>
+        <%= f.label :status_id, "未着手", {value: 1} %>
+      </label>
+      <label class="btn btn-outline-secondary">
+        <%= f.radio_button :status_id, "2", checked: params[:status_id] == "2" %>
+        <%= f.label :status_id, "着手中", {value: 2} %>
+      </label>
+      <label class="btn btn-outline-secondary">
+        <%= f.radio_button :status_id, "3", checked: params[:status_id] == "3" %>
+        <%= f.label :status_id, "完了", {value: 3} %>
+      </label>
+    </div>
+  </div>
+  <%= f.submit "検索", class: "offset-4 col-4 offset-4 mb-2 btn btn-dark" %>
 <% end %>
 
-<% @tasks.each do |task| %>
-  <p><%= link_to task.title, task_path(task) %> : <%= task.status.name %>：<%= task.priority.name %></p>
-<% end %>
+<table class="table table-bordered table-hover table-striped text-center">
+  <tr class="bg-danger text-white">
+    <th>タイトル</th>
+    <th>ステータス</th>
+    <th>優先順位</th>
+  </tr>
+  <% @tasks.each do |task| %>
+  <tr>
+    <td><%= link_to task.title, task_path(task), class: "text-dark" %></td>
+    <td><%= task.status.name %></td>
+    <td><%= task.priority.name %></td>
+  <% end %>
+</table>
 
-<%= paginate @tasks %>
+<div class="d-flex justify-content-center">
+  <%= paginate @tasks %>
+</div>
 
-<%= link_to "タスク作成", new_task_path %>
+<%= link_to "タスク作成", new_task_path, class: "offset-4 col-4 offset-4 btn btn-primary form-control" %>

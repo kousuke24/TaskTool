@@ -1,9 +1,22 @@
-<h2>タスク詳細</h2>
+<div class="text-center">
+  <h2 class="font-weight-bold">タスク詳細</h2>
+</div>
 
-<p>タイトル：　<%= @task.title %></p>
-<p>内容：　<%= @task.content %></p>
-<p>終了期限： <%= @task.deadline %></p>
-<p>ステータス： <%= @task.status.name %></p>
-<p>優先順位： <%= @task.priority.name %></p>
+<table class="table table-bordered text-center">
+  <tr class="bg-danger text-white">
+    <th>タイトル</th>
+    <th>内容</th>
+    <th>終了期限</th>
+    <th>ステータス</th>
+    <th>優先順位</th>
+  </tr>
+  <tr>
+    <td><%= @task.title %></td>
+    <td><%= @task.content %></td>
+    <td><%= @task.deadline %></td>
+    <td><%= @task.status.name %></td>
+    <td><%= @task.priority.name %></td>
+  </tr>
+</table>
 
-<%= link_to "タスク編集", edit_task_path %>
+<%= link_to "タスク編集", edit_task_path, class: "offset-4 col-4 offset-4 btn btn-success form-control" %>
