@@ -4,6 +4,7 @@
 
 <table class="table table-bordered text-center">
   <tr class="bg-danger text-white">
+    <th>ユーザー</th>
     <th>タイトル</th>
     <th>内容</th>
     <th>終了期限</th>
@@ -11,6 +12,7 @@
     <th>優先順位</th>
   </tr>
   <tr>
+    <td><%= @task.user.name %></td>
     <td><%= @task.title %></td>
     <td><%= @task.content %></td>
     <td><%= @task.deadline %></td>
