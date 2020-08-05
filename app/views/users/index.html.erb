@@ -1,0 +1,20 @@
+<div class="text-center">
+  <h2 class="font-weight-bold">ユーザー一覧</h2>
+</div>
+
+<table class="table table-bordered text-center">
+  <tr class="bg-danger text-white">
+    <th>ユーザー名</th>
+  </tr>
+  <% @users.each do |user| %>
+  <tr>
+    <td><%= link_to user.name, user_path(user), class: "text-dark" %></td>
+  </tr>
+  <% end %>
+</table>
+
+<div class="d-flex justify-content-center">
+  <%= paginate @users %>
+</div>
+
+<%= link_to "ユーザー作成", new_user_path, class: "offset-4 col-4 offset-4 btn btn-primary form-control" %>
