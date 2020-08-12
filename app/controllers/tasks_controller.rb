@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  skip_before_action :login_required, only: [:index]
+
   def index
     @tasks = Task.preload(:status, :priority).page(params[:page]).per(10)
     sort_tasks
@@ -15,6 +17,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task.user_id = current_user.id
     if @task.save
       flash[:info] = 'タスクを作成しました'
       redirect_to task_path(@task)

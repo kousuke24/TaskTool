@@ -43,4 +43,9 @@
   <%= paginate @tasks %>
 </div>
 
-<%= link_to "タスク作成", new_task_path, class: "offset-4 col-4 offset-4 btn btn-primary form-control" %>
+<div class="d-flex justify-content-center">
+<%= link_to "ユーザー一覧", users_path, class: "mr-2 col-4 ml-2 btn btn-success form-control" %>
+<% if current_user %>
+  <%= link_to "タスク作成", new_task_path, class: "mr-2 col-4 ml-2 btn btn-primary form-control" %>
+<% end %>
+</div>

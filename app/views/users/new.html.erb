@@ -1,28 +1,31 @@
 <div class="text-center">
   <h2 class="font-weight-bold">ユーザー作成</h2>
 </div>
-
-<%= form_with model: @user, local: true do |f| %>
-  <% if @user.errors.include?(:name) %>
-    <p class="offset-3 col-9 font-weight-bold text-danger"><%= @user.errors.full_messages_for(:name).first %>
+<% unless current_user %>
+  <%= form_with model: @user, local: true do |f| %>
+    <% if @user.errors.include?(:name) %>
+      <p class="offset-3 col-9 font-weight-bold text-danger"><%= @user.errors.full_messages_for(:name).first %>
+    <% end %>
+    <div class="row mb-3">
+      <div class="col-3 text-center"><%= f.label :name, "ユーザー名" %></div>
+      <div class="col-9"><%= f.text_field :name, class: "form-control" %></div>
+    </div>
+    <% if @user.errors.include?(:password) %>
+      <p class="offset-3 col-9 font-weight-bold text-danger"><%= @user.errors.full_messages_for(:password).first %>
+    <% end %>
+    <div class="row mb-3">
+      <div class="col-3 text-center"><%= f.label :password, "パスワード" %></div>
+      <div class="col-9"><%= f.password_field :password, class: "form-control" %></div>
+    </div>
+    <% if @user.errors.include?(:password_confirmation) %>
+      <p class="offset-3 col-9 font-weight-bold text-danger"><%= @user.errors.full_messages_for(:password_confirmation).first %>
+    <% end %>
+    <div class="row mb-3">
+      <div class="col-3 text-center"><%= f.label :password_confirmation, "パスワード確認" %></div>
+      <div class="col-9"><%= f.password_field :password_confrimation, class: "form-control" %></div>
+    </div>
+    <%= f.submit "ユーザー作成", class: "offset-4 col-4 offset-4 btn btn-primary form-control" %>
   <% end %>
-  <div class="row mb-3">
-    <div class="col-3 text-center"><%= f.label :name, "ユーザー名" %></div>
-    <div class="col-9"><%= f.text_field :name, class: "form-control" %></div>
-  </div>
-  <% if @user.errors.include?(:password) %>
-    <p class="offset-3 col-9 font-weight-bold text-danger"><%= @user.errors.full_messages_for(:password).first %>
-  <% end %>
-  <div class="row mb-3">
-    <div class="col-3 text-center"><%= f.label :password, "パスワード" %></div>
-    <div class="col-9"><%= f.password_field :password, class: "form-control" %></div>
-  </div>
-  <% if @user.errors.include?(:password_confirmation) %>
-    <p class="offset-3 col-9 font-weight-bold text-danger"><%= @user.errors.full_messages_for(:password_confirmation).first %>
-  <% end %>
-  <div class="row mb-3">
-    <div class="col-3 text-center"><%= f.label :password_confirmation, "パスワード確認" %></div>
-    <div class="col-9"><%= f.password_field :password_confrimation, class: "form-control" %></div>
-  </div>
-  <%= f.submit "ユーザー作成", class: "offset-4 col-4 offset-4 btn btn-primary form-control" %>
+<% else %>
+  <h1 class="text-center">このページにはアクセスできません</h1>
 <% end %>

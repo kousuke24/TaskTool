@@ -20,5 +20,6 @@
     <td><%= @task.priority.name %></td>
   </tr>
 </table>
-
-<%= link_to "タスク編集", edit_task_path, class: "offset-4 col-4 offset-4 btn btn-success form-control" %>
+<% if current_user.id == @task.user_id %>
+  <%= link_to "タスク編集", edit_task_path, class: "offset-4 col-4 offset-4 btn btn-success form-control" %>
+<% end %>
