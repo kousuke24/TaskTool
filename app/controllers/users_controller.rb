@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :login_required, only: [:index, :new, :create]
+  skip_before_action :login_required, only: %i[index new create]
 
   def index
     @users = User.all.page(params[:page]).per(10)
