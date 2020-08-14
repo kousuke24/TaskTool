@@ -19,7 +19,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     @task.user_id = current_user.id
     if @task.save
-      flash[:info] = 'タスクを作成しました'
+      flash[:success] = 'タスクを作成しました'
       redirect_to task_path(@task)
     else
       flash.now[:warning] = 'タスクを作成できませんでした'
@@ -45,7 +45,7 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find(params[:id])
     if @task.destroy
-      flash[:danger] = 'タスクを削除しました'
+      flash[:success] = 'タスクを削除しました'
       redirect_to root_path
     else
       flash.now[:warning] = 'タスクを削除できませんでした'
