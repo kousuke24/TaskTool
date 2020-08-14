@@ -16,13 +16,9 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    if reset_session
-      flash[:success] = 'ログアウトしました'
-      redirect_to root_path
-    else
-      flash[:warning] = 'ログアウトできませんでした'
-      redirect_to user_path(current_user.id)
-    end
+    reset_session
+    flash[:success] = 'ログアウトしました'
+    redirect_to root_path
   end
 
   private
