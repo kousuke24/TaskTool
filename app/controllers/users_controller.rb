@@ -43,7 +43,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.destroy
       flash[:success] = 'ユーザーを削除しました'
-      redirect_to root_path
+      redirect_to login_path
     else
       flash[:warning] = 'ユーザーを削除できませんでした'
       render :edit

@@ -1,6 +1,4 @@
 class TasksController < ApplicationController
-  skip_before_action :login_required, only: [:index]
-
   def index
     @tasks = Task.preload(:status, :priority).page(params[:page]).per(10)
     sort_tasks
@@ -46,7 +44,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     if @task.destroy
       flash[:success] = 'タスクを削除しました'
-      redirect_to root_path
+      redirect_to tasks_path
     else
       flash.now[:warning] = 'タスクを削除できませんでした'
       render :edit

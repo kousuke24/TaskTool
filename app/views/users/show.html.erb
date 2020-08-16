@@ -2,25 +2,18 @@
   <h2 class="font-weight-bold">ユーザー詳細</h2>
 </div>
 
-<table class="table table-bordered text-center">
-  <tr class="bg-danger text-white">
-    <th>ユーザー名</th>
-  </tr>
-  <tr>
-    <td><%= @user.name %></td>
-  </tr>
-</table>
-
 <% if current_user.id == @user.id %>
-  <%= link_to "ユーザー編集", edit_user_path, class: "offset-4 col-4 offset-4 btn btn-success form-control mb-2" %>
   <table class="table table-bordered text-center">
-  <tr class="bg-danger text-white">
-    <th><%= current_user.name %>のタスク一覧</th>
-  </tr>
-  <% @user.tasks.each do |task| %>
-  <tr>
-    <td><%= link_to task.title, user_path(task), class: "text-dark" %></td>
-  </tr>
-  <% end %>
+    <tr class="bg-danger text-white">
+      <th>ユーザー名</th>
+    </tr>
+    <tr>
+      <td><%= @user.name %></td>
+    </tr>
   </table>
+  <div class="d-flex justify-content-center text-center">
+    <%= link_to "ユーザー編集", edit_user_path, class: "col-4 btn btn-success form-control" %>
+  </div>
+<% else %>
+  <h1 class="text-center">このページにはアクセスできません</h1>
 <% end %>

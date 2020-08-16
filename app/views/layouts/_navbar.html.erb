@@ -1,20 +1,14 @@
 <nav class="navbar bg-danger">
-  <h1><%= link_to "TaskTool", root_path, class: "text-white nav-link" %></h1>
-  <ul class="navbar-nav">
-    <% if current_user %>
-      <li class="nav-item">
-        <%= link_to "#{current_user.name}", user_path(current_user.id), class: "text-white nav-link" %>
-      </li>
-      <li class="nav-item">
-        <%= link_to "ログアウト", logout_path, method: :delete, data: { confirm: "本当にログアウトしますか？" }, class: "text-white nav-link" %>
-      </li>
-    <% else %>
-      <li class="nav-item">
-        <%= link_to "ユーザー作成", new_user_path, class: "text-white nav-link" %>
-      </li>
-      <li class="nav-item">
-        <%= link_to "ログイン", login_path, class: "text-white nav-link" %>
-      </li>
-    <% end %>
-  </ul>
+  <% if current_user %>
+    <h1><%= link_to "TaskTool", tasks_path, class: "text-white nav-link" %></h1>
+    <div class="d-flex justify-content-right">
+      <%= link_to "ログアウト", logout_path, method: :delete, data: { confirm: "本当にログアウトしますか？" }, class: "text-white nav-link" %>
+    </div>
+  <% else %>
+    <h1><%= link_to "TaskTool", root_path, class: "text-white nav-link" %></h1>
+    <div class="d-flex justify-content-right">
+      <%= link_to "ユーザー作成", new_user_path, class: "text-white nav-link" %>
+      <%= link_to "ログイン", login_path, class: "text-white nav-link" %>
+    </div>
+  <% end %>
 </nav>
