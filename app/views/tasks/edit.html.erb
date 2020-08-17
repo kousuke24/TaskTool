@@ -1,72 +1,75 @@
 <div class="text-center">
   <h2 class="font-weight-bold">タスク編集</h2>
 </div>
-
-<%= form_with model: @task, local: true do |f| %>
-  <% if @task.errors.include?(:title) %>
-    <p class="offset-3 col-9 font-weight-bold text-danger"><%= @task.errors.full_messages_for(:title).first %>
-  <% end %>
-  <div class="row mb-3">
-    <div class="col-3 text-center"><%= f.label :title, "タイトル" %></div>
-    <div class="col-9"><%= f.text_field :title, class: "form-control" %></div>
-  </div>
-  <% if @task.errors.include?(:content) %>
-    <p class="offset-3 col-9 font-weight-bold text-danger"><%= @task.errors.full_messages_for(:content).first %>
-  <% end %>
-  <div class="row mb-3">
-    <div class="col-3 text-center"><%= f.label :content, "内容" %></div>
-    <div class="col-9"><%= f.text_area :content, class: "form-control" %></div>
-  </div>
-  <% if @task.errors.include?(:deadline) %>
-    <p class="offset-3 col-9 font-weight-bold text-danger"><%= @task.errors.full_messages_for(:deadline).first %>
-  <% end %>
-  <div class="row mb-3">
-    <div class="col-3 text-center"><%= f.label :deadline, "終了期限" %></div>
-    <div class="col-9"><%= f.date_field :deadline, class: "form-control" %></div>
-  </div>
-  <% if @task.errors.include?(:status) %>
-    <p class="offset-3 col-9 font-weight-bold text-danger"><%= @task.errors.full_messages_for(:stauts).first %>
-  <% end %>
-  <div class="row mb-3">
-    <div class="col-3 text-center"><%= f.label :status_id, "ステータス" %></div>
-      <div class="col-9 btn-group btn-group-toggle" data-toggle="buttons">
-        <label class="btn btn-outline-secondary">
-          <%= f.radio_button :status_id, "1" %>
-          <%= f.label :status_id, "未着手", {value: 1} %>
-        </label>
-        <label class="btn btn-outline-secondary">
-          <%= f.radio_button :status_id, "2" %>
-          <%= f.label :status_id, "着手中", {value: 2} %>
-        </label>
-        <label class="btn btn-outline-secondary">
-          <%= f.radio_button :status_id, "3" %>
-          <%= f.label :status_id, "完了", {value: 3} %>
-        </label>
-      </div>
-  </div>
-  <% if @task.errors.include?(:prioryty) %>
-    <p class="offset-3 col-9 font-weight-bold text-danger"><%= @task.errors.full_messages_for(:priority).first %>
-  <% end %>
-  <div class="row mb-3">
-    <div class="col-3 text-center"><%= f.label :priority_id, "優先順位" %></div>
-      <div class="col-9 btn-group btn-group-toggle" data-toggle="buttons">
-        <label class="btn btn-outline-secondary">
-          <%= f.radio_button :priority_id, "1" %>
-          <%= f.label :priority_id, "高", {value: 1} %>
-        </label>
-        <label class="btn btn-outline-secondary">
-          <%= f.radio_button :priority_id, "2" %>
-          <%= f.label :priority_id, "中", {value: 2} %>
-        </label>
-        <label class="btn btn-outline-secondary">
-          <%= f.radio_button :priority_id, "3" %>
-          <%= f.label :priority_id, "低", {value: 3} %>
-        </label>
+<% if current_user.id == @task.user_id %>
+  <%= form_with model: @task, local: true do |f| %>
+    <% if @task.errors.include?(:title) %>
+      <p class="offset-3 col-9 font-weight-bold text-danger"><%= @task.errors.full_messages_for(:title).first %>
+    <% end %>
+    <div class="row mb-3">
+      <div class="col-3 text-center"><%= f.label :title, "タイトル" %></div>
+      <div class="col-9"><%= f.text_field :title, class: "form-control" %></div>
+    </div>
+    <% if @task.errors.include?(:content) %>
+      <p class="offset-3 col-9 font-weight-bold text-danger"><%= @task.errors.full_messages_for(:content).first %>
+    <% end %>
+    <div class="row mb-3">
+      <div class="col-3 text-center"><%= f.label :content, "内容" %></div>
+      <div class="col-9"><%= f.text_area :content, class: "form-control" %></div>
+    </div>
+    <% if @task.errors.include?(:deadline) %>
+      <p class="offset-3 col-9 font-weight-bold text-danger"><%= @task.errors.full_messages_for(:deadline).first %>
+    <% end %>
+    <div class="row mb-3">
+      <div class="col-3 text-center"><%= f.label :deadline, "終了期限" %></div>
+      <div class="col-9"><%= f.date_field :deadline, class: "form-control" %></div>
+    </div>
+    <% if @task.errors.include?(:status) %>
+      <p class="offset-3 col-9 font-weight-bold text-danger"><%= @task.errors.full_messages_for(:stauts).first %>
+    <% end %>
+    <div class="row mb-3">
+      <div class="col-3 text-center"><%= f.label :status_id, "ステータス" %></div>
+        <div class="col-9 btn-group btn-group-toggle" data-toggle="buttons">
+          <label class="btn btn-outline-secondary">
+            <%= f.radio_button :status_id, "1" %>
+            <%= f.label :status_id, "未着手", {value: 1} %>
+          </label>
+          <label class="btn btn-outline-secondary">
+            <%= f.radio_button :status_id, "2" %>
+            <%= f.label :status_id, "着手中", {value: 2} %>
+          </label>
+          <label class="btn btn-outline-secondary">
+            <%= f.radio_button :status_id, "3" %>
+            <%= f.label :status_id, "完了", {value: 3} %>
+          </label>
+        </div>
+    </div>
+    <% if @task.errors.include?(:prioryty) %>
+      <p class="offset-3 col-9 font-weight-bold text-danger"><%= @task.errors.full_messages_for(:priority).first %>
+    <% end %>
+    <div class="row mb-3">
+      <div class="col-3 text-center"><%= f.label :priority_id, "優先順位" %></div>
+        <div class="col-9 btn-group btn-group-toggle" data-toggle="buttons">
+          <label class="btn btn-outline-secondary">
+            <%= f.radio_button :priority_id, "1" %>
+            <%= f.label :priority_id, "高", {value: 1} %>
+          </label>
+          <label class="btn btn-outline-secondary">
+            <%= f.radio_button :priority_id, "2" %>
+            <%= f.label :priority_id, "中", {value: 2} %>
+          </label>
+          <label class="btn btn-outline-secondary">
+            <%= f.radio_button :priority_id, "3" %>
+            <%= f.label :priority_id, "低", {value: 3} %>
+          </label>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="d-flex justify-content-center">
-    <%= f.submit "タスク更新", class: "col-4 mr-2 btn btn-success form-control" %>
-    <%= link_to "タスク削除", @task, method: :delete, data: { confirm: "タスク\"#{@task.title}\"を削除しますか？" }, class: "col-4 ml-2 btn btn-danger form-control" %>
-  </div>
+    <div class="d-flex justify-content-center">
+      <%= f.submit "タスク更新", class: "col-4 mr-2 btn btn-success form-control" %>
+      <%= link_to "タスク削除", @task, method: :delete, data: { confirm: "タスク\"#{@task.title}\"を削除しますか？" }, class: "col-4 ml-2 btn btn-danger form-control" %>
+    </div>
+  <% end %>
+<% else %>
+  <h1 class="text-center">このページにはアクセスできません</h1>
 <% end %>

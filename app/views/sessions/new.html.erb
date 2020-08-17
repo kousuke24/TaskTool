@@ -1,0 +1,18 @@
+<div class="text-center">
+  <h2 class="font-weight-bold">ログイン</h2>
+</div>
+<% unless current_user %>
+<%= form_with url: login_path, local: true do |f| %>
+  <div class="row mb-3">
+    <div class="col-3 text-center"><%= f.label :name, "ユーザー名" %></div>
+    <div class="col-9"><%= f.text_field :name, class: "form-control" %></div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-3 text-center"><%= f.label :password, "パスワード" %></div>
+    <div class="col-9"><%= f.password_field :password, class: "form-control" %></div>
+  </div>
+  <%= f.submit "ログイン", class: "offset-4 col-4 offset-4 btn btn-primary form-control" %>
+<% end %>
+<% else %>
+  <h1 class="text-center">このページにはアクセスできません</h1>
+<% end %>

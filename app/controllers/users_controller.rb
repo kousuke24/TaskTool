@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  skip_before_action :login_required, only: %i[index new create]
+
   def index
     @users = User.all.page(params[:page]).per(10)
   end
@@ -14,7 +16,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:info] = 'ユーザーを作成しました'
+      flash[:success] = 'ユーザーを作成しました'
       redirect_to user_path(@user)
     else
       flash.now[:warning] = 'ユーザーを作成できませんでした'
@@ -40,10 +42,10 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     if @user.destroy
-      flash[:danger] = 'ユーザーを削除しました'
-      redirect_to root_path
+      flash[:success] = 'ユーザーを削除しました'
+      redirect_to login_path
     else
-      flash[:warning] = 'ユーザーを削除しました'
+      flash[:warning] = 'ユーザーを削除できませんでした'
       render :edit
     end
   end
