@@ -1,0 +1,27 @@
+<div class="text-center">
+  <h2 class="font-weight-bold">管理画面：ユーザー詳細</h2>
+</div>
+
+<table class="table table-bordered text-center">
+  <tr class="bg-danger text-white">
+    <th>ユーザー名</th>
+  </tr>
+  <tr>
+    <td><%= @user.name %></td>
+  </tr>
+</table>
+
+<div class="d-flex justify-content-center text-center">
+  <%= link_to "ユーザー編集", edit_admin_user_path, class: "col-4 btn btn-success form-control" %>
+</div>
+
+<table class="table table-bordered text-center mt-2">
+  <tr class="bg-danger text-white">
+    <th>「 <%= @user.name %> 」が所持するタスク一覧</th>
+  </tr>
+  <% @user.tasks.each do |task| %>
+  <tr>
+    <td><%= task.title %></td>
+  </tr>
+  <% end %>
+</table>
