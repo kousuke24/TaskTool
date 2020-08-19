@@ -4,9 +4,15 @@
 
 <table class="table table-bordered text-center">
   <tr class="bg-danger text-white">
+    <th>権限</th>
     <th>ユーザー名</th>
   </tr>
   <tr>
+    <% if @user.admin_flag == true %>
+      <td>管理者</td>
+    <% else %>
+      <td>ユーザー</td>
+    <% end %>
     <td><%= @user.name %></td>
   </tr>
 </table>
