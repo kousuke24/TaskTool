@@ -1,6 +1,4 @@
-class UsersController < ApplicationController
-  skip_before_action :login_required, only: %i[index new create]
-
+class Admin::UsersController < ApplicationController
   def index
     @users = User.all.page(params[:page]).per(10)
   end
@@ -17,7 +15,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:success] = 'ユーザーを作成しました'
-      redirect_to user_path(@user)
+      redirect_to admin_user_path(@user)
     else
       flash.now[:warning] = 'ユーザーを作成できませんでした'
       render :new
@@ -32,7 +30,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:success] = 'ユーザーの登録情報を更新しました'
-      redirect_to user_path(@user)
+      redirect_to admin_user_path(@user)
     else
       flash[:warning] = 'ユーザーの登録情報を更新できませんでした'
       render :edit

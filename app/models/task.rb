@@ -4,5 +4,5 @@ class Task < ApplicationRecord
 
   belongs_to :status
   belongs_to :priority
-  belongs_to :user
+  belongs_to :user, counter_cache: true
 end

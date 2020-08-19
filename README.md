@@ -21,7 +21,7 @@
 
 (user・name・string)  
 (user・password_digest・string)  
-(user・admin_flag・string)  
+(user・admin_flag・boolean)  
 
 (status・name・string)  
 

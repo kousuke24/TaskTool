@@ -33,7 +33,7 @@
   </tr>
   <% @tasks.each do |task| %>
   <tr>
-    <% if current_user.id == task.user_id%>
+    <% if current_user.id == task.user_id %>
       <td><%= link_to task.title, task_path(task), class: "text-dark" %></td>
       <td><%= task.status.name %></td>
       <td><%= task.priority.name %></td>
