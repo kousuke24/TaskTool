@@ -3,6 +3,7 @@ class TasksController < ApplicationController
     @tasks = Task.preload(:status, :priority).page(params[:page]).per(10)
     sort_tasks
     search_tasks
+    search_labels
   end
 
   def show
@@ -54,7 +55,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :content, :deadline, :status_id, :priority_id)
+    params.require(:task).permit(:title, :content, :deadline, :status_id, :priority_id, label_ids: [])
   end
 
   def sort_tasks
@@ -67,5 +68,16 @@ class TasksController < ApplicationController
   def search_tasks
     @tasks = @tasks.where('title LIKE ?', "%#{params[:title]}%") if params[:title].present?
     @tasks = @tasks.where(status_id: params[:status_id]) if params[:status_id].present?
+  end
+
+  def search_labels
+    if params[:label] == "1"
+      #@tasks = Task.left_joins(:tasks_labels_relation).where(tasks_labels_relation: { label_id: 1 })
+      @tasks = @tasks.left_joins(:tasks_labels_relation).where(tasks_labels_relation: { label_id: 1 })
+    elsif params[:label] == "2"
+      @tasks
+    else
+      @tasks
+    end
   end
 end

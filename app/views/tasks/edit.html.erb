@@ -3,6 +3,11 @@
 </div>
 <% if current_user.id == @task.user_id %>
   <%= form_with model: @task, local: true do |f| %>
+    <div class="d-flex justify-content-center">
+      <%= f.collection_check_boxes :label_ids, Label.all, :id, :name do |t| %>
+        <% t.label { t.check_box + t.text } %>
+      <% end %>
+    </div>
     <% if @task.errors.include?(:title) %>
       <p class="text-center font-weight-bold text-danger"><%= @task.errors.full_messages_for(:title).first %>
     <% end %>
