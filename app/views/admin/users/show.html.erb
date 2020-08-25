@@ -8,7 +8,7 @@
     <th>ユーザー名</th>
   </tr>
   <tr>
-    <% if @user.admin_flag == true %>
+    <% if @user.admin_flag %>
       <td>管理者</td>
     <% else %>
       <td>ユーザー</td>
