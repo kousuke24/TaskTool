@@ -23,7 +23,7 @@
   </div>
   <div class="d-flex justify-content-around mb-2">
     <%= f.select :sort, options_for_select({作成日時昇順: "created_at,asc", 作成日時降順: "created_at,desc", 終了期限昇順: "deadline,asc", 終了期限降順: "deadline,desc", 優先順位昇順: "priority_id,asc", 優先順位降順: "priority_id,desc"},params[:sort]), {}, {class: "mr-2 form-control"} %>
-    <%= f.select :label, options_for_select({食品: "1", 日用品: "2"},params[:label]), {include_blank: "ラベル絞り込み"}, {class: "mr-2 form-control"} %>
+    <%= f.select :label_id, options_for_select({食品: "1", 日用品: "2"},params[:label_id]), {include_blank: "ラベル絞り込み"}, {class: "mr-2 form-control"} %>
     <%= f.submit "検索", class: "col-4 btn btn-dark" %>
   </div>
 <% end %>
@@ -44,6 +44,7 @@
       <td>
       <% task.labels.each do |label| %>
         <%= label.name %>
+        <%#= binding.pry %>
       <% end %>
       </td>
     <% end %>
