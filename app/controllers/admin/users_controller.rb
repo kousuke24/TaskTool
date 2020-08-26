@@ -1,4 +1,6 @@
 class Admin::UsersController < ApplicationController
+  before_action :require_admin
+
   def index
     @users = User.all.page(params[:page]).per(10)
   end
@@ -41,16 +43,20 @@ class Admin::UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.destroy
       flash[:success] = 'ユーザーを削除しました'
-      redirect_to login_path
+      redirect_to admin_users_path
     else
       flash[:warning] = 'ユーザーを削除できませんでした'
-      render :edit
+      render :edit, alert: ":"
     end
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:name, :password, :password_confirmation)
+    params.require(:user).permit(:name, :password, :password_confirmation, :admin_flag)
+  end
+
+  def require_admin
+    raise Forbidden unless current_user.admin_flag?
   end
 end
