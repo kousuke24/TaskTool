@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.preload(:status, :priority).page(params[:page]).per(10)
+    @tasks = Task.preload(:status, :priority, :labels).page(params[:page]).per(10)
     sort_tasks
     search_tasks
   end
