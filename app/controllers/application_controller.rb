@@ -6,6 +6,14 @@ class ApplicationController < ActionController::Base
   class Forbidden < ActionController::ActionControllerError; end
   rescue_from Forbidden, with: :rescue403
 
+  rescue_from Exception, with: :rescue500
+  rescue_from ActiveRecord::RecordNotFound, with: :rescue404
+  rescue_from ActionController::RoutingError, with: :rescue404
+
+  def routing_error
+    raise ActionController::RoutingError, params[:path]
+  end
+
   private
 
   # ユーザーの情報を取得するメソッド
@@ -21,5 +29,13 @@ class ApplicationController < ActionController::Base
   # 403エラー時に表示する画面
   def rescue403
     render file: 'public/403.html', status: 403, layout: false
+  end
+
+  def rescue404
+    render 'errors/404', status: :not_found
+  end
+ 
+  def rescue500
+    render 'errors/500', status: :internal_server_error
   end
 end
