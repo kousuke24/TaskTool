@@ -5,4 +5,7 @@ class Task < ApplicationRecord
   belongs_to :status
   belongs_to :priority
   belongs_to :user, counter_cache: true
+
+  has_many :tasks_labels_relation, :dependent => :nullify
+  has_many :labels, through: :tasks_labels_relation
 end

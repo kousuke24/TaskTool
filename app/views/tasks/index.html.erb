@@ -5,7 +5,6 @@
 <%= form_with url: { controller: 'tasks', action: 'index' }, method: :get, local: true do |f| %>
   <div class="mb-2 d-flex justify-content-around">
     <%= f.text_field :title, value: params[:title], class: "col-3 form-control" %>
-    <%= f.select :sort, options_for_select({作成日時昇順: "created_at,asc", 作成日時降順: "created_at,desc", 終了期限昇順: "deadline,asc", 終了期限降順: "deadline,desc", 優先順位昇順: "priority_id,asc", 優先順位降順: "priority_id,desc"},params[:sort]), {}, {class: "ml-3 form-control"} %>
     
     <div class="col-9 btn-group btn-group-toggle" data-toggle="buttons">
       <label class="btn btn-outline-secondary">
@@ -22,7 +21,11 @@
       </label>
     </div>
   </div>
-  <%= f.submit "検索", class: "offset-4 col-4 offset-4 mb-2 btn btn-dark" %>
+  <div class="d-flex justify-content-around mb-2">
+    <%= f.select :sort, options_for_select({作成日時昇順: "created_at,asc", 作成日時降順: "created_at,desc", 終了期限昇順: "deadline,asc", 終了期限降順: "deadline,desc", 優先順位昇順: "priority_id,asc", 優先順位降順: "priority_id,desc"},params[:sort]), {}, {class: "mr-2 form-control"} %>
+    <%= f.select :label_id, options_for_select({食品: "1", 日用品: "2"},params[:label_id]), {include_blank: "ラベル絞り込み"}, {class: "mr-2 form-control"} %>
+    <%= f.submit "検索", class: "col-4 btn btn-dark" %>
+  </div>
 <% end %>
 
 <table class="table table-bordered table-hover table-striped text-center">
@@ -30,6 +33,7 @@
     <th>タイトル</th>
     <th>ステータス</th>
     <th>優先順位</th>
+    <th>ラベル</th>
   </tr>
   <% @tasks.each do |task| %>
   <tr>
@@ -37,6 +41,11 @@
       <td><%= link_to task.title, task_path(task), class: "text-dark" %></td>
       <td><%= task.status.name %></td>
       <td><%= task.priority.name %></td>
+      <td>
+      <% task.labels.each do |label| %>
+        <%= label.name %>
+      <% end %>
+      </td>
     <% end %>
   <% end %>
 </table>

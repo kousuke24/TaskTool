@@ -2,6 +2,11 @@
   <h2 class="font-weight-bold">タスク詳細</h2>
 </div>
 <% if current_user.id == @task.user_id %>
+  <% @task.labels.each do |label| %>
+    <div class="badge badge-pill badge-danger mb-2">
+      <%= label.name %>
+    </div>
+  <% end %>
   <table class="table table-bordered text-center">
     <tr class="bg-danger text-white">
       <th>ユーザー</th>
